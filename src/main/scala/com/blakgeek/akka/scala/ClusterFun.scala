@@ -1,6 +1,6 @@
 package com.blakgeek.akka.scala
 
-import akka.actor.{Props, ActorSystem, Actor}
+import akka.actor.{ActorLogging, Props, ActorSystem, Actor}
 import akka.cluster.Cluster
 import akka.event.Logging
 import akka.cluster.ClusterEvent._
@@ -25,10 +25,9 @@ object ClusterFun {
   }
 }
 
-class ClusterVoyeur extends Actor {
+class ClusterVoyeur extends Actor with ActorLogging {
 
   val cluster = Cluster.get(context.system)
-  val log = Logging(context.system, this)
 
   override def preStart(): Unit = {
 
