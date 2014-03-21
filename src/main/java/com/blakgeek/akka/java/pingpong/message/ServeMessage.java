@@ -1,4 +1,4 @@
-package com.blakgeek.akka.pingpong.message;
+package com.blakgeek.akka.java.pingpong.message;
 
 /**
  * User: Carlos Lawton
@@ -6,6 +6,4 @@ package com.blakgeek.akka.pingpong.message;
  * Time: 2:50 PM
  */
 public class ServeMessage {
-    public ServeMessage() {
-    }
 }

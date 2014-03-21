@@ -1,4 +1,4 @@
-package com.blakgeek.akka.pingpong;
+package com.blakgeek.akka.java.pingpong;
 
 import akka.actor.ActorSystem;
 import akka.actor.Props;

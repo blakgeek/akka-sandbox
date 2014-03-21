@@ -1,10 +1,10 @@
-package com.blakgeek.akka.pingpong;
+package com.blakgeek.akka.java.pingpong;
 
 import akka.actor.ActorRef;
 import akka.actor.Props;
 import akka.actor.UntypedActor;
-import com.blakgeek.akka.pingpong.message.MissedMessage;
-import com.blakgeek.akka.pingpong.message.ServeMessage;
+import com.blakgeek.akka.java.pingpong.message.*;
+
 
 /**
  * User: Carlos Lawton
@@ -27,13 +27,13 @@ public class Game extends UntypedActor {
     @Override
     public void preStart() throws Exception {
 
-        ping.tell(new ServeMessage(), pong);
+        ping.tell(new ServeMessage(), getSelf());
     }
 
     @Override
     public void onReceive(Object message) throws Exception {
 
-        if(message.getClass().isAssignableFrom(MissedMessage.class)) {
+        if(message instanceof MissedMessage) {
 
             String name = getSender().path().name();
             System.out.println(String.format("%s missed.", name));

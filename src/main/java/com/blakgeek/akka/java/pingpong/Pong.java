@@ -1,10 +1,8 @@
-package com.blakgeek.akka.pingpong;
+package com.blakgeek.akka.java.pingpong;
 
 import akka.actor.ActorRef;
 import akka.actor.UntypedActor;
-import com.blakgeek.akka.pingpong.message.MissedMessage;
-import com.blakgeek.akka.pingpong.message.ServeMessage;
-import com.blakgeek.akka.pingpong.message.VolleyMessage;
+import com.blakgeek.akka.java.pingpong.message.*;
 
 /**
  * User: Carlos Lawton
@@ -22,8 +20,7 @@ public class Pong extends UntypedActor {
     @Override
     public void onReceive(Object message) throws Exception {
 
-        Class clazz = message.getClass();
-        if(clazz.isAssignableFrom(VolleyMessage.class)) {
+        if(message instanceof VolleyMessage) {
             VolleyMessage volleyMessage = (VolleyMessage) message;
             if(Math.random() * 10 < 8) {
                 System.out.println("Pong!");
@@ -31,10 +28,10 @@ public class Pong extends UntypedActor {
             } else {
                 game.tell(new MissedMessage(), getSelf());
             }
-        } else if(clazz.isAssignableFrom(ServeMessage.class)) {
+        } else if(message instanceof ServeMessage) {
 
             System.out.println("Game on!\nPONG!!!");
-            getSender().tell(new VolleyMessage(0), getSelf());
+            context().actorFor("../ping").tell(new VolleyMessage(0), getSelf());
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.blakgeek.akka.pingpong.message;
+package com.blakgeek.akka.java.pingpong.message;
 
 /**
  * User: Carlos Lawton

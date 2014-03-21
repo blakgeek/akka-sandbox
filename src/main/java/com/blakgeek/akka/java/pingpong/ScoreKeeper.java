@@ -1,8 +1,8 @@
-package com.blakgeek.akka.pingpong;
+package com.blakgeek.akka.java.pingpong;
 
 import akka.actor.ActorRef;
 import akka.actor.UntypedActor;
-import com.blakgeek.akka.pingpong.message.ServeMessage;
+import com.blakgeek.akka.java.pingpong.message.*;
 
 /**
  * User: Carlos Lawton
