@@ -5,7 +5,7 @@ import akka.cluster.Cluster
 import akka.cluster.ClusterEvent._
 import akka.cluster.ClusterEvent.MemberUp
 import akka.cluster.ClusterEvent.UnreachableMember
-import com.typesafe.config.ConfigFactory
+import com.typesafe.config.{Config, ConfigFactory}
 
 /**
  * User: Carlos Lawton
@@ -18,8 +18,9 @@ object ClusterFun {
   def main(args: Array[String]): Unit = {
 
     val port = if(args.length > 0) args(0) else 0
-    val config = ConfigFactory.parseString("akka.remote.netty.tcp.port=" + port)
-      .withFallback(ConfigFactory.load())
+    val customConfig = ConfigFactory.parseString("akka.remote.netty.tcp.port=" + port)
+    val appConfig = ConfigFactory.load();
+    val config: Config = customConfig.withFallback(appConfig.getConfig("clustered")).withFallback(appConfig)
     val system = ActorSystem("da-cluster", config)
     system.actorOf(Props[ClusterVoyeur], "da-watcher")
   }
