@@ -2,7 +2,6 @@ package com.blakgeek.akka.scala
 
 import akka.actor.{ActorLogging, Props, ActorSystem, Actor}
 import akka.cluster.Cluster
-import akka.event.Logging
 import akka.cluster.ClusterEvent._
 import akka.cluster.ClusterEvent.MemberUp
 import akka.cluster.ClusterEvent.UnreachableMember
@@ -18,7 +17,8 @@ object ClusterFun {
 
   def main(args: Array[String]): Unit = {
 
-    val config = ConfigFactory.parseString("akka.remote.netty.tcp.port=" + args(0))
+    val port = if(args.length > 0) args(0) else 0
+    val config = ConfigFactory.parseString("akka.remote.netty.tcp.port=" + port)
       .withFallback(ConfigFactory.load())
     val system = ActorSystem("da-cluster", config)
     system.actorOf(Props[ClusterVoyeur], "da-watcher")
